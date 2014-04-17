@@ -18,7 +18,6 @@
 /******************************************************************************/
 char light_state;
 
-volatile char but1_press;
 volatile char but0_press;
 /*
  light_state contains which state the light is in
@@ -46,12 +45,6 @@ void main(void)
         if (but0_press == 1)
         {
             but0_press = 0;
-            ToggleOnOff();
-        }
-
-        if (but1_press == 1)
-        {
-            but1_press = 0;
             NextState();
         }
     }

@@ -54,7 +54,7 @@ void DisableOutput(void)
     TRISAbits.TRISA5 = 1;//disables output by setting TRISA5 = 1
     return;
 }
-
+/*
 void ToggleOnOff(void)     //toggles PWM output
 {
     if (TRISAbits.TRISA5 == 1)   //this means the output is disabled
@@ -64,7 +64,7 @@ void ToggleOnOff(void)     //toggles PWM output
         DisableOutput();
     }
 }
-
+*/
 void NextState(void)       //cycles to the next brightness state
 {
     if (TRISAbits.TRISA5 == 0)

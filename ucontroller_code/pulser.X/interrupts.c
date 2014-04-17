@@ -24,9 +24,6 @@ void interrupt isr(void)
     if (IOCAF4 = 1)
     {
         but0_press = 1;
-    } else if (IOCAF0 = 1)
-    {
-        but1_press = 1;
     }
 
 }

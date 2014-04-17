@@ -9,7 +9,6 @@
 #define	SHARED_H
 #endif
 
-extern volatile char but1_press;
 extern volatile char but0_press;
 extern char light_state;
 
