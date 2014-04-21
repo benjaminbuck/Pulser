@@ -20,8 +20,14 @@ void ConfigureOscillator(void)
     register, select new clock sources, and to wait until new clock sources
     are stable before resuming execution of the main project. */
     //setup OSCCON
-    OSCCONbits.SPLLEN = 1;
+    OSCCONbits.SPLLEN = 1; //4x PLL is enabled (also enabled in the configuration words)
     OSCCONbits.IRCF = 0b1110;
+    //results in 32MHz clock frequency
+    //now wait until the HFOSC is fully running
+    while (OSCSTATbits.HFIOFL == 0 || OSCSTATbits.HFIOFR == 0)
+    {
+        NOP();
+    }
 
     return;
 
@@ -41,10 +47,12 @@ void StartupConfig(void)
 
     //enable interrupts for change on in/out pins.
     INTCONbits.GIE = 1;
+    INTCONbits.PEIE = 1;
     INTCONbits.IOCIE = 1;
 
-    //enable positive edge interrupt generation for RA0 and RA4
-    IOCAPbits.IOCAP4 = 1;
-    IOCAN = 0;  //no falling edge detection
+
+    //enable negative edge interrupt generation for RA4
+    IOCANbits.IOCAN4 = 1;
+    IOCAP = 0;  //no rising edge detection
 
 }

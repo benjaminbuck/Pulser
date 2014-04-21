@@ -17,8 +17,11 @@
 /* User Global Variable Declaration                                           */
 /******************************************************************************/
 char light_state;
-
 volatile char but0_press;
+volatile char *i2c_data;
+volatile char i2c_data_length;
+volatile char ack_count;
+volatile char i2c_in_use;
 /*
  light_state contains which state the light is in
  0 = high
@@ -37,12 +40,15 @@ void main(void)
     //configure ports for the device
     StartupConfig();
 
-    
+    //configure cap sense
+    SetupCapSense();
 
+    //setup the timer; enable output
+    EnableOutput();
 
     while(1)
     {
-        if (but0_press == 1)
+        if (PORTAbits.RA4 == 1)
         {
             but0_press = 0;
             NextState();

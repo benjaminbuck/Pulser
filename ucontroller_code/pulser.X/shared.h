@@ -11,4 +11,8 @@
 
 extern volatile char but0_press;
 extern char light_state;
+extern volatile char *i2c_data;
+extern volatile char i2c_data_length;
+extern volatile char ack_count;
+extern volatile char i2c_in_use;
 
