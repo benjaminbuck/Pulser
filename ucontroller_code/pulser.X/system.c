@@ -37,6 +37,8 @@ void StartupConfig(void)
 {
 
     TRISAbits.TRISA4 = 1;//RA4 is an input
+    ANSELAbits.ANSA4 = 0;//RA4 is used as an dig
+
     TRISAbits.TRISA5 = 1;//RA5 is an output, but we let the timer change this bit
     TRISAbits.TRISA3 = 1;//RA3 is MCRL, always an input
     TRISAbits.TRISA2 = 1;//RA2 is SDA, but should be set to input (see 25.4.3)
@@ -52,7 +54,7 @@ void StartupConfig(void)
 
 
     //enable negative edge interrupt generation for RA4
-    IOCANbits.IOCAN4 = 1;
+    IOCAN = 0b00010000; //falling edge detection on RA4
     IOCAP = 0;  //no rising edge detection
 
 }

@@ -194,25 +194,26 @@ void NextState(void)       //cycles to the next brightness state
 {
     switch(light_state)
     {
+        //page 185 for equations
         case 0: //0 is high
-            CCPR1L = 0x0C;
+            CCPR1L = 0x36;
             CCP1CONbits.DC1B = 0b00;
             light_state = 1;
-            //result is 0x30
+            //result is 0xD8
             break;
 
         case 1: //1 is medium
-            CCPR1L = 0x06;
-            CCP1CONbits.DC1B = 0b10;
+            CCPR1L = 0x1B;
+            CCP1CONbits.DC1B = 0b00;
             light_state = 2;
-            //result is 0x1A;
+            //result is 0x6C;
             break;
 
         case 2: //2 is low
-            CCPR1L = 0x02;
+            CCPR1L = 0x05;
             CCP1CONbits.DC1B = 0b10;
             light_state = 0;
-            //result is 0x0A;
+            //result is 0x16;
             break;
 
         default:

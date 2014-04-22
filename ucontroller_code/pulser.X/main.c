@@ -42,13 +42,14 @@ void main(void)
 
     //configure cap sense
     SetupCapSense();
+    DisMSSP();
 
     //setup the timer; enable output
     EnableOutput();
 
     while(1)
     {
-        if (PORTAbits.RA4 == 1)
+        if (but0_press == 1)
         {
             but0_press = 0;
             NextState();

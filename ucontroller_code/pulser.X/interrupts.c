@@ -17,14 +17,10 @@
 
 void interrupt isr(void)
 {
-    /* This code stub shows general interrupt handling.  Note that these
-    conditional statements are not handled within 3 seperate if blocks.
-    Do not use a seperate if block for each interrupt flag to avoid run
-    time errors. */
-    if (IOCAFbits.IOCAF4 == 1)
+    if (IOCAFbits.IOCAF4 != 0)
     {
-        IOCAF = IOCAF && 0b00101111;//set IOCAF4 to zero
-        but0_press = 0x00;
+        IOCAFbits.IOCAF4 &= 0;//set IOCAF4 to zero
+        but0_press = 0x01;
     } else if (PIR1bits.SSP1IF == 1) {
     ///////I2C ISR
         PIR1bits.SSP1IF = 0;    //clear the interrupt flag
@@ -52,8 +48,8 @@ void interrupt isr(void)
             i2c_data_length--;  //decrement the number of data left in the array
             i2c_data++; //increment the address of the array
         }
-    } else {
-        CCPR1L = 0x0D;
+    } else if (IOCAFbits.IOCAF4 == 0) {
+        CCPR1L = 0x01;
         CCP1CONbits.DC1B = 0b00;
     }
 }
